@@ -4,7 +4,6 @@ const zod = require('zod');
 const jwt = require('jesonwebtoken');
 const JWT_SECRET = require('../config');
 
-
 const signupSchema = zod.object({
     username: zod.string().min(3).max(20),
     password: zod.string().min(8).max(20),
@@ -40,5 +39,39 @@ router.post("/signup",async(req,res)=>{
         message: "User Created",
         userToken : token
     })
+
+})
+
+
+
+const signinBody = zod.object({
+    username: zod.string(),
+    password: zod.string()
+
+})
+
+const signin  = router.post('/signin',async(req,res)=>{
+    const {success} = signinBody.safeParse(req.body);
+
+    if(!success){
+        return res.json({
+            message: "Invalid Data"
+        })
+    }
+    const  checkUser = await User.findOne({
+        username: req.body.username,
+        password: req.body.password
+    }
+)
+if(checkUser){
+  const token = jwt.sign({
+    userId: checkUser._id
+  },JWT_SECRET)
+}
+
+res.json({
+    message: "User Signed In",
+    userToken : token
+})
 
 })
