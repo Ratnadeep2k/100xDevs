@@ -22,7 +22,7 @@ router.post("/signup",async(req,res)=>{
     }
 
     const user =User.findOne({
-        username: body.username
+        username: req.body.username
     })
     if(user._id){
         return res.json({
