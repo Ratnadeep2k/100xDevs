@@ -3,7 +3,7 @@ const router = express.Router();
 const zod = require('zod');
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = require('../config');
-const authMiddleware = require('../middleware');
+const {authMiddleware} = require('../middleware');
 const { User, Account } = require('../db');
 
 const signupSchema = zod.object({
@@ -99,7 +99,7 @@ const updateBody = zod.object({
     lastname: zod.string().optional()
 });
 
-router.put('/update', authMiddleware, async (req, res) => {
+router.put('/update', authMiddleware , async (req, res) => {
     const { success } = updateBody.safeParse(req.body);
     if (!success) {
         return res.json({
