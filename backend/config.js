@@ -1,2 +1,3 @@
-const JWT_SECRET ='1234'
-module.exports =  JWT_SECRET
+module.exports = {
+	JWT_SECRET: "your-jwt-secret"
+}
