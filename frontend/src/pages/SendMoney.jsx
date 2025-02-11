@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 export const SendMoney = () => {
-
     const [amount,setAmount] = useState(0);
     const [searchParams] = useSearchParams();
     const id = searchParams.get('id');
